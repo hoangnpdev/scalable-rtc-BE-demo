@@ -1,4 +1,4 @@
-package nph.laboratory.template.configuration;
+package nph.laboratory.template.configuration.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

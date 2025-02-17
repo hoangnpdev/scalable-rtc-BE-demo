@@ -1,4 +1,4 @@
-package nph.laboratory.template.configuration;
+package nph.laboratory.template.configuration.security;
 
 import jakarta.servlet.*;
 import org.springframework.security.core.Authentication;

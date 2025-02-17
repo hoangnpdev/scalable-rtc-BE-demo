@@ -1,4 +1,4 @@
-package nph.laboratory.template.session;
+package nph.laboratory.template.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
