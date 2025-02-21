@@ -1,4 +1,4 @@
-package nph.laboratory.template.configuration.security;
+package nph.laboratory.template.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +15,9 @@ public class WebSecurityConfig {
     @Bean
     @Order(1)
     public SecurityFilterChain sessionSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.securityMatcher("/session", "/web-socket")
+        http.securityMatcher("*")
                 .authorizeHttpRequests(req -> {
-                    req.requestMatchers("/session", "/web-socket").permitAll();
+                    req.requestMatchers("*").permitAll();
                 });
         return http.build();
     }

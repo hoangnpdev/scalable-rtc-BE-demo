@@ -1,4 +1,4 @@
-package nph.laboratory.template.configuration.websocket;
+package nph.laboratory.template.message;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

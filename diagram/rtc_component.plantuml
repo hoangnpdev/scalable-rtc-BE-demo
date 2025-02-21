@@ -1,0 +1,30 @@
+@startuml
+
+interface rtc <<websocket>>
+interface msg_history <<http>>
+class MsgHistoryService
+
+package kafka <<database>> {
+
+}
+
+package postgres <<database>> {
+    class Message {
+        global_channel_id: paritioned
+        timestamp: clustered, b-tree indexed
+        content
+        
+    }
+
+    class global_channel {
+        channel_id
+        channel_name
+    }
+}
+
+
+msg_history --> MsgHistoryService
+rtc --> MsgHistoryService
+rtc --> kafka
+MsgHistoryService --> Message
+@enduml

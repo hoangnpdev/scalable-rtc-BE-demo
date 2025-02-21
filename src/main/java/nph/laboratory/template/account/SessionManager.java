@@ -1,4 +1,4 @@
-package nph.laboratory.template.user;
+package nph.laboratory.template.account;
 
 import org.springframework.stereotype.Component;
 
