@@ -16,14 +16,18 @@ public class SessionManager {
         sessionStore = new ConcurrentHashMap<>();
     }
 
-    public String newSession() {
+    public String newSession(String accountName) {
         String uuid = UUID.randomUUID().toString();
         String session = Base64.getEncoder().encodeToString(uuid.getBytes());
-        sessionStore.put(session, "");
+        sessionStore.put(session, accountName);
         return session;
     }
 
     public boolean checkSessionExist(String session) {
         return sessionStore.containsKey(session);
+    }
+
+    public String getAccountName(String session) {
+        return sessionStore.get(session);
     }
 }

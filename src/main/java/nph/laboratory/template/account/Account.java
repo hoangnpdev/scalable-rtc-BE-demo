@@ -12,7 +12,8 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer accountId;
 
-    private String username;
+    @Column(unique = true)
+    private String accountName;
 
     private String password;
 }

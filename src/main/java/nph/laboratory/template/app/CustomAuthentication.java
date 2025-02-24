@@ -1,4 +1,4 @@
-package nph.laboratory.template.security;
+package nph.laboratory.template.app;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -7,6 +7,9 @@ import java.util.Collection;
 import java.util.List;
 
 public class CustomAuthentication implements Authentication {
+    private boolean authenticated;
+    private String accountName;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
@@ -29,16 +32,20 @@ public class CustomAuthentication implements Authentication {
 
     @Override
     public boolean isAuthenticated() {
-        return true;
+        return authenticated;
     }
 
     @Override
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-
+        authenticated = isAuthenticated;
     }
 
     @Override
     public String getName() {
-        return "";
+        return accountName;
+    }
+
+    public void setName(String name) {
+        accountName = name;
     }
 }

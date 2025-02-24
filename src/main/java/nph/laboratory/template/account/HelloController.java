@@ -10,19 +10,16 @@ import java.util.List;
 @Controller
 public class HelloController {
 
-    @Autowired
-    private SessionManager sessionManager;
-    @Autowired
-    private AccountService accountService;
+    private final AccountService accountService;
 
-    @GetMapping("/session")
-    public ResponseEntity<String> session() {
-        return ResponseEntity.ok(sessionManager.newSession());
+    public HelloController(AccountService accountService) {
+        this.accountService = accountService;
     }
+
 
     @GetMapping("/users")
     public ResponseEntity<List<Account>> listUser(){
-        return ResponseEntity.ok(accountService.listAllUser());
+        return ResponseEntity.ok(accountService.listAllAccount());
     };
 
 
