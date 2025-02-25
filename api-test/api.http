@@ -1,0 +1,12 @@
+GET http://localhost:8080/account:login
+Content-Type: application/json
+
+{
+
+}
+
+> {%
+client.global.set("vlxx", "https://vlxx.com")
+client.log(client.global.get('vlxx'));
+ %}
+###

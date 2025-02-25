@@ -29,10 +29,10 @@ public class WebSecurityConfig {
     @Order(1)
     public SecurityFilterChain sessionSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .securityMatcher("/account:login", "/account:register")
+                .securityMatcher("/account:login", "/account:register", "/web-socket")
                 .authorizeHttpRequests(req -> {
                     req
-                            .requestMatchers("/account:login", "/account:register")
+                            .requestMatchers("/account:login", "/account:register", "/web-socket")
                             .permitAll();
                 }).csrf(AbstractHttpConfigurer::disable);
         return http.build();
