@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import nph.laboratory.template.account.SessionManager;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,6 +26,9 @@ public class CustomAuthenticationFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         log.info("entering filter");
         HttpServletRequest req = (HttpServletRequest) servletRequest;
+        if(HttpMethod.OPTIONS.equals(HttpMethod.valueOf(req.getMethod()))) {
+            filterChain.doFilter(req, servletResponse);
+        }
         Enumeration<String> sessionEnum = req.getHeaders(HttpHeaders.AUTHORIZATION);
         if (!sessionEnum.hasMoreElements()) {
             throw new BadCredentialsException("Invalid credentials");

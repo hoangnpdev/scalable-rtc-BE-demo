@@ -12,6 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.context.SecurityContextHolderFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain otherSecurityFilterChain(HttpSecurity http) throws Exception {
 
         http
-                .addFilterAfter(new CustomAuthenticationFilter(sessionManager), SecurityContextHolderFilter.class)
+                .addFilterAfter(new CustomAuthenticationFilter(sessionManager), CorsFilter.class)
                 .authorizeHttpRequests(req -> {
                     req.anyRequest().authenticated();
                 }).csrf(AbstractHttpConfigurer::disable);

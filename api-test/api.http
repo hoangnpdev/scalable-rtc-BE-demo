@@ -1,12 +1,20 @@
-GET http://localhost:8080/account:login
+POST http://localhost:8080/account:login
 Content-Type: application/json
 
 {
-
+  "accountName": "hoang",
+  "password": "123456"
 }
+> {%
+client.global.set("session", response.body);
+client.log("session here", client.global.get("session"))
+ %}
+###
+
+GET http://localhost:8080/rtc/global-channel
+Content-Type: application/json
+Authorization: {{session}}
 
 > {%
-client.global.set("vlxx", "https://vlxx.com")
-client.log(client.global.get('vlxx'));
  %}
 ###

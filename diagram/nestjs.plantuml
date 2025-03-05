@@ -1,0 +1,27 @@
+@startuml
+class Controller
+class Service
+class NestFactory
+
+
+class Module
+class RootModule
+
+note right of RootModule: dependency injection register information
+
+
+NestFactory --> RootModule
+NestFactory --> Controller: Provider (instance)
+NestFactory --> Service: Provider (instance)
+Controller --> Service: use
+
+RootModule --> Module
+Module --> Controller: register
+Module --> Service: register
+
+
+
+
+
+note "Provider is dependency injection elements" as n1
+@enduml
