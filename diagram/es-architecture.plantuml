@@ -1,0 +1,33 @@
+@startuml
+package client <<Node>> {
+}
+
+
+package es_node_1 <<Node>> {
+    class Index_shard1
+    class Document
+    Index_shard1 --{ Document
+    class Index_rep3
+}
+
+package es_node_2 <<Node>> {
+    class Index_shard2
+    class Index_rep1
+}
+
+package es_node_3 <<Node>> {
+}
+
+
+client --> es_node_1: search (1)
+es_node_1 --> es_node_2: search (2)
+es_node_1 --> es_node_3: search (2)
+
+note as global
+1. Each node can be a coordinator node and a worker node
+2. Use routing value = hash_f(document id) to decide,
+which shard a document should be in.
+3. Replica mechanism
+end note
+
+@enduml
