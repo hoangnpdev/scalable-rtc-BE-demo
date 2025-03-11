@@ -1,33 +1,81 @@
 @startuml
-package client <<Node>> {
-}
+
+together {
+    package client <<Node>> {
+    }
+
+    package es_node_1 <<Node>> {
+        class Index_shard1
+        class Document
+        Index_shard1 --{ Document
+        class Index_rep3
+    }
+
+    package es_node_2 <<Node>> {
+        class Index_shard2
+        class Index_rep1
+    }
+
+    package es_node_3 <<Node>> {
+    }
+    note as global
+    1. Each node can be a coordinator node and a worker node
+    2. Use routing value = hash_f(document id) to decide,
+    which shard a document should be in.
+    3. A master node is responsible for creating/deleting node, shard allocation
+    4. Replica mechanism???
+    end note
 
 
-package es_node_1 <<Node>> {
-    class Index_shard1
-    class Document
-    Index_shard1 --{ Document
-    class Index_rep3
-}
-
-package es_node_2 <<Node>> {
-    class Index_shard2
-    class Index_rep1
-}
-
-package es_node_3 <<Node>> {
-}
-
-
+'search flow
 client --> es_node_1: search (1)
 es_node_1 --> es_node_2: search (2)
 es_node_1 --> es_node_3: search (2)
 
-note as global
-1. Each node can be a coordinator node and a worker node
-2. Use routing value = hash_f(document id) to decide,
-which shard a document should be in.
-3. Replica mechanism
+'insert flow
+client --> es_node_1: insert (1)
+es_node_1 --> es_node_3: insert (2)
+note on link
+node chosen to insert,
+based on routing value
 end note
+}
+
+together {
+    class $Index
+    class $Document
+    class $Index_mapping
+    class $Index_mapping
+
+$Index --{ $Document
+$Index -- $Index_mapping
+
+note bottom of $Index_mapping
+Decide which field is index
+and type of these field.
+and type of these field.
+end note
+
+}
+
+
+together {
+    class $Query
+    class $LeafQueryClause
+    class $CompoundQueryClause
+    class $term
+    class $match
+    class $boolean
+
+    $Query ^-- $LeafQueryClause
+    $Query ^-- $CompoundQueryClause
+
+    $CompoundQueryClause --{ $CompoundQueryClause: bool, dis_max, constant_score
+    $CompoundQueryClause --{ $LeafQueryClause: bool, dis_max, constant_score
+
+    note bottom of $LeafQueryClause
+    match, term or range
+    end note
+}
 
 @enduml

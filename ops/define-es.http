@@ -1,0 +1,35 @@
+GET http://localhost:9200/_cat/indices
+
+
+###
+GET http://localhost:9200/global-message-index/_mapping
+
+
+###
+
+PUT http://localhost:9200/global-message-index
+Content-Type: application/json
+
+{
+  "mappings": {
+    "properties": {
+      "message": {"type":  "text"},
+      "channelName": {"type": "keyword"}
+    }
+  }
+}
+
+###
+PUT http://localhost:9200/global-message-index/_mapping
+Content-Type: application/json
+
+{
+  "properties": {
+    "channelName": {"type": "keyword"}
+  }
+}
+
+###
+
+
+

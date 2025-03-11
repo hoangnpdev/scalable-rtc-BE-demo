@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Data
 public class RtcMessage {
 
+    private String msgId;
     private LocalDateTime timestamp;
     private String accountName;
     private String message;
@@ -28,6 +29,7 @@ public class RtcMessage {
         rtcMessage.setMessage(globalMsg.getMessage());
         rtcMessage.setTimestamp(globalMsg.getTimestamp());
         rtcMessage.setChannelName(globalMsg.getChannel().getChannelName());
+        rtcMessage.setMsgId(globalMsg.getMsgId().toString());
         return rtcMessage;
     }
 }
