@@ -74,3 +74,24 @@ services:
       - discovery.seed_hosts=es01,es02
       - cluster.initial_master_nodes=es01,es02,es03
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+  clickhouse01:
+    image: nph/clickhouse:25.0
+    container_name: clickhouse01
+    ports:
+      - 18123:8123
+    environment:
+      - CLICKHOUSE_SERVER_ID=1
+  clickhouse02:
+    image: nph/clickhouse:25.0
+    container_name: clickhouse02
+    ports:
+      - 28123:8123
+    environment:
+      - CLICKHOUSE_SERVER_ID=2
+  clickhouse03:
+    image: nph/clickhouse:25.0
+    container_name: clickhouse03
+    ports:
+      - 38123:8123
+    environment:
+      - CLICKHOUSE_SERVER_ID=3
