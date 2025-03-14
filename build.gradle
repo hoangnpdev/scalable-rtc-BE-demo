@@ -29,6 +29,8 @@ dependencies {
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 	implementation 'co.elastic.clients:elasticsearch-java:7.17.28'
 	implementation 'org.elasticsearch.client:elasticsearch-rest-client:7.17.28'
+	implementation 'org.springframework:spring-jdbc:6.2.3'
+	implementation 'com.clickhouse:clickhouse-jdbc:0.8.2:shaded-all'
 	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.36'
 	annotationProcessor 'org.projectlombok:lombok:1.18.36'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
