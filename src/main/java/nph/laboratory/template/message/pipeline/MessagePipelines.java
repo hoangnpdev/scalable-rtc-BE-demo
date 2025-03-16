@@ -96,9 +96,11 @@ public class MessagePipelines {
 
     private void toClickhouse(List<RtcMessage> records) {
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(records.toArray());
+        log.info("no record received from kafka {}", records.size());
         int[] updateCounts = chJdbcTemplate.batchUpdate(
                 "INSERT INTO rtc_chat_monitor.rtc_message (*) VALUES (:channelName, :accountName, :message, :msgId, :timestamp)", batch);
         long total = Arrays.stream(updateCounts).asLongStream().sum();
+        log.info("update result {}", updateCounts);
         if (total != records.size()) {
             log.error("some error");
         }
