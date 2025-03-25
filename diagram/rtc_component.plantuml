@@ -1,30 +1,61 @@
 @startuml
 
-interface rtc <<websocket>>
-interface msg_history <<http>>
-class MsgHistoryService
+'left to right direction
 
-package kafka <<database>> {
+
+together {
+package Frontend:Reactjs {
+}
+
+package Grafana {
+}
+}
+
+"Frontend:Reactjs" --> "Backend:Spring"
+
+package Backend:Spring {
+interface RtcService <<websocket>>
+
+class MessagePersistentService {}
 
 }
 
-package postgres <<database>> {
+
+MessagePersistentService --> "postgres/citus (cluster)": persist message
+MessagePersistentService --> "kafka": publishing
+
+
+together {
+package "postgres/citus (cluster)" {
     class Message {
         global_channel_id: paritioned
         timestamp: clustered, b-tree indexed
         content
         
     }
+}
 
-    class global_channel {
-        channel_id
-        channel_name
+package kafka <<node>> {
+
+}
+
+}
+
+"kafka" --> "clickhouse (cluster)"
+"kafka" --> "elasticsearch (cluster)"
+
+
+
+together {
+    package "clickhouse (cluster)" <<node>> {
+    }
+
+    package "elasticsearch (cluster)" <<node>> {
     }
 }
 
+"Backend:Spring" --> "elasticsearch (cluster)": search APIs
 
-msg_history --> MsgHistoryService
-rtc --> MsgHistoryService
-rtc --> kafka
-MsgHistoryService --> Message
+Grafana --> "clickhouse (cluster)": monitoring
+
 @enduml
